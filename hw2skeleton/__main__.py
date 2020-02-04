@@ -57,16 +57,20 @@ hierarchical.Cluster()
 
 
 xs = []
-ys = []
-hierarchical.DFS(hierarchical.nodes["NODE3"],xs,ys)
-print(len(xs))
-# print(len(ys))
+# ys = []
+# hierarchical.DFS(hierarchical.nodes["NODE3"],xs,ys)
+# print(len(xs))
+# # print(len(ys))
 
-xs = []
-ys = []
-hierarchical.DFS(hierarchical.nodes["NODE133"],xs,ys)
-print(len(xs))
-# print(len(ys))
+# xs = []
+# ys = []
+# hierarchical.DFS(hierarchical.nodes["NODE133"],xs,ys)
+# print(len(xs))
+# # print(len(ys))
+print(hierarchical.nodes["NODE133"].left,hierarchical.nodes["NODE133"].right)
+
+print(hierarchical.nodes["NODE129"].left,hierarchical.nodes["NODE129"].right)
+
 
 
 # # Choose clustering algorithm

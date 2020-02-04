@@ -151,8 +151,10 @@ class hierarchical(object):
 
 
             hierarchical.bestDistance = hierarchical.dummy #-999999
-            #print "hierarchical.distance dict ", hierarchical.distance
             for node_pair, cur_distance in hierarchical.distance.items():
+                """
+                    After creating new node, update best* distances
+                """
 
                 if cur_distance > hierarchical.bestDistance:
                     left_one, right_one = node_pair
