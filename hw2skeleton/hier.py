@@ -3,10 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from math import sqrt
 
-global xs
-global ys
-xs = []
-ys = []
+
 
 class hierarchical(object):
 
@@ -109,15 +106,14 @@ class hierarchical(object):
 
 
     @staticmethod
-    def DFS(root):
-        global xs
-        global ys
+    def DFS(root,xs,ys):
+
         if root is not None:
 
             if root.left:
-                hierarchical.DFS(hierarchical.nodes[root.left])
+                hierarchical.DFS(hierarchical.nodes[root.left],xs,ys)
             if root.right:
-                hierarchical.DFS(hierarchical.nodes[root.right])
+                hierarchical.DFS(hierarchical.nodes[root.right],xs,ys)
 
             if root.name.startswith("V"):
 

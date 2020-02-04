@@ -11,7 +11,6 @@ class data_point():
 	def __init__(self,label="",data=tuple()):
 		self.label = label
 		self.data = data
-		self.centroid = None
 
 		if self.label == "":
 			self.label = str(data_point.label_counter)
@@ -24,7 +23,7 @@ class kmeans(object):
 		a clustering method that clusters data using k centroids and a specified 
 		distance metric
 	"""
-	def __init__(self,data,k,threshold=2,distance_metric="euclid"):
+	def __init__(self,data,k,threshold=5,distance_metric="euclid"):
 		self.data = data #list of of data_point objects
 		self.k = k #number of centroids
 		self.centroids = None #This will eventually become a dictionary when clustering() is called
@@ -44,18 +43,25 @@ class kmeans(object):
 		update = 0
 		self.update_centroids() #set centroids 
 		while update < self.threshold: 
-
+			temp_centroids = {}
 			for point in self.data: #for each data point calculate...
 				best = 99999
 				assigned_key = None
 				for cent in self.centroids.keys(): #..its distance to the current centroids
 					dist = self.distance_metric(point.data,cent)
 					if dist < best: #keep track of what 
+						
 						assigned_key = cent
 						best = dist
-				#print("look here",assigned_key)
-				self.centroids[assigned_key].append(point)
-			
+
+				if assigned_key not in temp_centroids.keys():
+					temp_centroids[assigned_key] = []
+					temp_centroids[assigned_key].append(point)
+				else:
+					temp_centroids[assigned_key].append(point)
+				
+				#self.centroids[assigned_key].append(point)
+			self.centroids = temp_centroids
 			self.update_centroids()
 			update += 1
 
@@ -97,13 +103,16 @@ class kmeans(object):
 		"""
 		out_vector = []
 		for item in point_objects:
+			"""
+				For each data vector add each of its indices to a out_vector
+			"""
 			for i, val in enumerate(item.data):
 				try:
 					out_vector[i] += val
 				except:
 					out_vector = out_vector + [val]
 
-		out_vector = [x/len(out_vector) for x in out_vector]
+		out_vector = [x/len(point_objects) for x in out_vector]
 		#print(tuple(out_vector))
 		return tuple(out_vector)
 
@@ -136,27 +145,31 @@ def silhouette_score(cluster1,cluster2):
 if __name__ == "__main__":
 
 	points = []
-	for x in range(20):
-		set1 = np.random.normal(5, 2, 20)
-		set2 = np.random.normal(20, 2, 20)
+	for x in range(5):
+		set1 = np.random.normal(5, 2, 2)
+		set2 = np.random.normal(20, 2, 2)
 		points.append(tuple(set1))
 		points.append(tuple(set2))
 
-	# print(points)
+	print(len(points))
 
 	data = []
 	for point in points:
 		data.append(data_point(data=point))
 
+	#print(len(data))
 	ha = kmeans(data=data,k=2)
 	ha.cluster()
-	print(ha.centroids.values())
+	#print(ha.centroids.values())
 
 	cents = []
-	for centroid, points in ha.centroid.items():
+	for centroid, points in ha.centroids.items():
+		print(centroid,len(points))
 		cents.append(points)
 
-	silhouette_score(points[0],points[1])
+	# print(ha.data)
+
+	# silhouette_score(points[0],points[1])
 	# cluster = 1
 	# for k,v in ha.centroids.items():
 	# 	temp = []
