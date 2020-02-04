@@ -41,6 +41,7 @@ def read_active_site(filepath):
     r_num = 0
 
     # open pdb file
+    chains = []
     with open(filepath, "r") as f:
         # iterate over each line in the file
         for line in f:
@@ -56,6 +57,10 @@ def read_active_site(filepath):
                 residue_type = line[17:20]
                 residue_number = int(line[23:26])
 
+                chain = line[21:22]
+                if chain not in chains:
+                    chains.append(chain)
+
                 # make a new residue if needed
                 if residue_number != r_num:
                     residue = Residue(residue_type, residue_number)
@@ -66,6 +71,7 @@ def read_active_site(filepath):
 
             else:  # I've reached a TER card
                 active_site.residues.append(residue)
+        active_site.chains = chains
 
     return active_site
 
