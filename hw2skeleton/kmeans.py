@@ -129,18 +129,6 @@ def generate_random_arrays(n):
 
 	return l
 
-def intra_distance(cluster):
-
-	pass
-	
-def inter_distance():
-	pass
-
-def silhouette_score(cluster1,cluster2):
-	a = intra_distance(cluster1)
-	b = intra_distance(cluster1,cluster2)
-	pass
-
 
 if __name__ == "__main__":
 

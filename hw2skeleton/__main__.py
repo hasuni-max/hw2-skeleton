@@ -1,12 +1,11 @@
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
-# import hierarchical as hier
 from .io import read_active_sites, write_clustering, write_mult_clusterings
-from .cluster import cluster_by_partitioning, cluster_hierarchically
 from .find_features import find_charge
 from .kmeans import kmeans, data_point
 from .hier import hierarchical
+from .scoring import silhouette_score
 
 # Some quick stuff to make sure the program is called correctly
 if len(sys.argv) < 4:
@@ -37,15 +36,21 @@ for act in active_sites:
 data = []
 for res,feature_vect in features.items():
 	data.append(data_point(label=res,data=tuple(feature_vect)))
-	hierarchical("V" + res, feature_vect, metric='Euclidian')
+# 	hierarchical("V" + res, feature_vect, metric='Euclidian')
 
-# ha = kmeans(data=data,k=3,threshold=20)
-# ha.cluster()
+# hierarchical.Cluster()
 
-# for k,v in ha.centroids.items():
-# 	print(k,len(v))
+#partitioning clustering
+km = kmeans(data=data,k=3,threshold=20)
+km.cluster()
 
-hierarchical.Cluster()
+clusts = []
+for k,v in km.centroids.items():
+	clusts.append([i.data for i in v])
+
+# print(clusts)
+s = silhouette_score(*clusts)
+print(s)
 
 
 
@@ -67,19 +72,9 @@ xs = []
 # hierarchical.DFS(hierarchical.nodes["NODE133"],xs,ys)
 # print(len(xs))
 # # print(len(ys))
-print(hierarchical.nodes["NODE133"].left,hierarchical.nodes["NODE133"].right)
+# print(hierarchical.nodes["NODE133"].left,hierarchical.nodes["NODE133"].right)
 
-print(hierarchical.nodes["NODE129"].left,hierarchical.nodes["NODE129"].right)
+# print(hierarchical.nodes["NODE129"].left,hierarchical.nodes["NODE129"].right)
 
 
 
-# # Choose clustering algorithm
-# if sys.argv[1][0:2] == '-P':
-#     print("Clustering using Partitioning method")
-#     clustering = cluster_by_partitioning(active_sites)
-#     write_clustering(sys.argv[3], clustering)
-
-# if sys.argv[1][0:2] == '-H':
-#     print("Clustering using hierarchical method")
-#     clusterings = cluster_hierarchically(active_sites)
-#     write_mult_clusterings(sys.argv[3], clusterings)
