@@ -90,6 +90,9 @@ class hierarchical(object):
         return -sqrt(deltas)
 
     def single(self, next_node):
+        """
+            Single linkage clustering
+        """
         low = -999
         for x in self.represented:
             for y in next_node.represented:
@@ -97,6 +100,9 @@ class hierarchical(object):
                     low = hierarchical.distance[x,y]
         return low
     def complete(self, next_node):
+        """
+            Complete linkage clustering
+        """
         low = 999
         for x in self.represented:
             for y in next_node.represented:

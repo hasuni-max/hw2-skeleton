@@ -148,32 +148,12 @@ if __name__ == "__main__":
 	#print(len(data))
 	ha = kmeans(data=data,k=2)
 	ha.cluster()
-	#print(ha.centroids.values())
 
 	cents = []
 	for centroid, points in ha.centroids.items():
 		print(centroid,len(points))
 		cents.append(points)
 
-	# print(ha.data)
-
-	# silhouette_score(points[0],points[1])
-	# cluster = 1
-	# for k,v in ha.centroids.items():
-	# 	temp = []
-	# 	for val in v:
-	# 		temp.append(val.data)
-		
-	# 	x, y = temp[0], temp[1]
-
-	# 	plt.plot(x,y,label=str(cluster))
-	# 	cluster += 1
-
-	# plt.legend()
-	# plt.xlabel("X")
-	# plt.ylabel("Y")
-	# plt.show()
-	
 
 
 
