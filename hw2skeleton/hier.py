@@ -150,7 +150,7 @@ class hierarchical(object):
 
 
             tempname = "NODE" + str(i)
-            print(tempname)
+            # print(tempname)
             hierarchical.metric = 'Complete'
 
             hierarchical(tempname, tempdata, hierarchical.metric, hierarchical.bestLeft, hierarchical.bestRight, represented= hierarchical.nodes[hierarchical.bestLeft].represented + hierarchical.nodes[hierarchical.bestRight].represented) # + hierarchical.nodes[hierarchical.bestRight].represented)

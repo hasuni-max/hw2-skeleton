@@ -41,7 +41,7 @@ def silhouette_score(*args):
 		Output: A list containing silhouette scores for each data doint
 
 	"""
-
+	outlist = []
 	for cluster in args:
 		temp = list(args)
 		temp.remove(cluster) #these are all other clusters used for inter calculations
@@ -51,7 +51,8 @@ def silhouette_score(*args):
 			b = inter_distance(point,*temp)
 			denom = max(a,b)
 			s = (b-a)/denom
-	return s
+			outlist.append(s)
+	return outlist
 
 
 if __name__ == "__main__":

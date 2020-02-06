@@ -32,49 +32,39 @@ for act in active_sites:
 	features[act.name].append(number_of_chains) #number of chains - done
 
 
-## Run clusterings
-data = []
-for res,feature_vect in features.items():
-	data.append(data_point(label=res,data=tuple(feature_vect)))
-# 	hierarchical("V" + res, feature_vect, metric='Euclidian')
+if sys.argv[1] == "-P":
+	print("Running kmeans")
+	data = []
+	for res,feature_vect in features.items():
+		data.append(data_point(label=res,data=tuple(feature_vect)))
 
-# hierarchical.Cluster()
+	km = kmeans(data=data,k=3,threshold=20)
+	km.cluster()
 
-#partitioning clustering
-km = kmeans(data=data,k=3,threshold=20)
-km.cluster()
+	clusts = []
+	for k,v in km.centroids.items():
+		clusts.append([i.data for i in v])
 
-clusts = []
-for k,v in km.centroids.items():
-	clusts.append([i.data for i in v])
+	s = silhouette_score(*clusts)
+	print("Average silhouette_score for kmeans", sum(s)/len(s))
 
-# print(clusts)
-s = silhouette_score(*clusts)
-print(s)
+elif sys.argv[1] == "-H":
+	print("Running hierarchical")
 
+	for res,feature_vect in features.items():
+		hierarchical("V" + res, feature_vect, metric='Euclidian')
 
+	hierarchical.Cluster()
+	xs = []
+	ys = []
 
-# xs = []
-# ys = []
-# hierarchical.DFS(hierarchical.nodes["NODE134"],xs,ys)
-# print(xs)
-# print(ys)
+	hierarchical.DFS(hierarchical.nodes["NODE133"],xs,ys)
+	print(ys)
+	# print(hierarchical.nodes["NODE133"].left,hierarchical.nodes["NODE133"].right)
 
+else:
+	print("Please specify clustering type")
 
-xs = []
-# ys = []
-# hierarchical.DFS(hierarchical.nodes["NODE3"],xs,ys)
-# print(len(xs))
-# # print(len(ys))
-
-# xs = []
-# ys = []
-# hierarchical.DFS(hierarchical.nodes["NODE133"],xs,ys)
-# print(len(xs))
-# # print(len(ys))
-# print(hierarchical.nodes["NODE133"].left,hierarchical.nodes["NODE133"].right)
-
-# print(hierarchical.nodes["NODE129"].left,hierarchical.nodes["NODE129"].right)
 
 
 
