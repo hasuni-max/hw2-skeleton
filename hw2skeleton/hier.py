@@ -36,8 +36,10 @@ class hierarchical(object):
 
         # a list with elements corresponding to names/keys of all child nodes of this node instance
         if not represented:
+            #All leafs will be represeneted by themselves
             self.represented = [name]
         else:
+            #Only when creating nodes during clustering will represented nodes be added
             self.represented = represented
 
 

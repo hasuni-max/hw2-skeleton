@@ -51,16 +51,17 @@ class kmeans(object):
 					dist = self.distance_metric(point.data,cent)
 					if dist < best: #keep track of what 
 						
-						assigned_key = cent
+						assigned_key = cent #keep track of the closest centroid
 						best = dist
 
+				#After a point has been compared to all centroid add to temp_dict
 				if assigned_key not in temp_centroids.keys():
 					temp_centroids[assigned_key] = []
 					temp_centroids[assigned_key].append(point)
 				else:
 					temp_centroids[assigned_key].append(point)
 				
-				#self.centroids[assigned_key].append(point)
+			#After all points have been looked at update instance variable centroids
 			self.centroids = temp_centroids
 			self.update_centroids()
 			update += 1
@@ -115,9 +116,6 @@ class kmeans(object):
 		out_vector = [x/len(point_objects) for x in out_vector]
 		#print(tuple(out_vector))
 		return tuple(out_vector)
-
-	def __str__(self):
-		pass
 
 
 if __name__ == "__main__":
