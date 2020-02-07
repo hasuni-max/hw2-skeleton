@@ -31,7 +31,7 @@ def test_distance_to_self():
 
 def test_recip_distance():
     #dist(a,b)==dist(b,a)
-    pdb_ids = [276]
+    pdb_ids = [276,4629]
 
     active_sites = []
     for id in pdb_ids:
