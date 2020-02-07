@@ -30,7 +30,7 @@ def test_distance_to_self():
     assert x == 0.0
 
 def test_recip_distance():
-    dist(a,b)==dist(b,a)
+    #dist(a,b)==dist(b,a)
     pdb_ids = [276]
 
     active_sites = []
