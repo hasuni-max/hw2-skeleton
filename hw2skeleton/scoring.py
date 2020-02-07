@@ -53,7 +53,7 @@ def silhouette_score(*args):
 
 		for point in cluster:
 			if len(cluster) == 1: #When a cluster only contains one member
-				a = 0.00000001. #Add a very small pseudo count
+				a = 0.00000001 #Add a very small pseudo count
 			else:
 				a = intra_distance(point,cluster)
 			b = inter_distance(point,*temp)
