@@ -62,7 +62,7 @@ def test_partition_clustering():
     km = kmeans.kmeans(data=data,k=3,threshold=3)
     km.cluster()
     # update this assertion
-    assert len(km.centroids.items()) >= 1
+    assert len(km.centroids.items()) == 3
 
 
 def test_hierarchical_clustering():
