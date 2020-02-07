@@ -18,10 +18,9 @@ def intra_distance(point,cluster):
 			distance += L2(point,val)
 	
 	if len(cluster) == 1:
-		return distance
+		return distance #0
 	else: 
 		return distance/(len(cluster)-1) #substract one for when point == val
-	# print(point,cluster)
 	
 def inter_distance(point,*args):
 	"""
@@ -53,8 +52,8 @@ def silhouette_score(*args):
 		temp.remove(cluster) #these are all other clusters used for inter calculations
 
 		for point in cluster:
-			if len(cluster) == 1:
-				a = 0.00000001
+			if len(cluster) == 1: #When a cluster only contains one member
+				a = 0.00000001. #Add a very small pseudo count
 			else:
 				a = intra_distance(point,cluster)
 			b = inter_distance(point,*temp)
@@ -62,6 +61,15 @@ def silhouette_score(*args):
 			s = (b-a)/denom
 			outlist.append(s)
 	return outlist
+
+def intersection_score(method1,method2):
+	"""
+		Was trying to think of a method that would look at the overall intersection
+		between clusterings, similar to a jacard, but I was having a hard time
+		coming up with anything
+	"""
+	pass
+
 
 
 if __name__ == "__main__":

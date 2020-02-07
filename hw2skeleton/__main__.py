@@ -94,11 +94,15 @@ elif sys.argv[1] == "-B":
 	hierarchical.DFS(hierarchical.nodes["NODE129"],clust2_names,clust2_data)
 	hierarchical.DFS(hierarchical.nodes["NODE132"],clust3_names,clust3_data)
 	# print(clust3_data)
-	s = silhouette_score([clust1],clust2_data,clust3_data)
+	hs = silhouette_score([clust1],clust2_data,clust3_data)
 
-	print("Average silhouette_score for hierarchical", sum(s)/len(s))
+	print("Average silhouette_score for hierarchical", sum(hs)/len(hs))
 
 	##Compare the two methods with 3 clusters
+	if s < hs:
+		print("Using a silhouette score Kmeans performed better than hierarchical")
+	else:
+		print("Using a silhouette score Hierarchical performed better than kmeans")
 
 
 
