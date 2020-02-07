@@ -119,16 +119,6 @@ class kmeans(object):
 	def __str__(self):
 		pass
 
-def generate_random_arrays(n):
-	"""
-		Generates a list of length n with random integers between 1 and 1000 using 
-		the sample function in the random module
-	"""
-
-	l = [random.randrange(1, 3) for _ in range(0, n)]
-
-	return l
-
 
 if __name__ == "__main__":
 

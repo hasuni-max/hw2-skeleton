@@ -55,12 +55,23 @@ elif sys.argv[1] == "-H":
 		hierarchical("V" + res, feature_vect, metric='Euclidian')
 
 	hierarchical.Cluster()
-	xs = []
-	ys = []
 
-	hierarchical.DFS(hierarchical.nodes["NODE133"],xs,ys)
-	print(ys)
-	# print(hierarchical.nodes["NODE133"].left,hierarchical.nodes["NODE133"].right)
+
+	clust1 = hierarchical.all_data["V10701"]
+	clust2_names = []
+	clust2_data = []
+	clust3_names = []
+	clust3_data = []
+	hierarchical.DFS(hierarchical.nodes["NODE129"],clust2_names,clust2_data)
+	hierarchical.DFS(hierarchical.nodes["NODE132"],clust3_names,clust3_data)
+	# print(clust3_data)
+	print(clust1)
+	print(clust2_data)
+	s = silhouette_score([clust1],clust2_data,clust3_data)
+
+	print("Average silhouette_score for hierarchical", sum(s)/len(s))
+
+
 
 else:
 	print("Please specify clustering type")

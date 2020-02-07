@@ -17,6 +17,7 @@ class hierarchical(object):
     bestDistance = nextBestDistance = -1000
     bestLeft = str
     bestRight = str
+    all_data = {}
     nextLeft = str
     nextRight = str
 
@@ -31,6 +32,7 @@ class hierarchical(object):
         self.left = left #leafs will be set to None
         self.taken = False
         self.data = data
+        hierarchical.all_data[self.name] = data
 
         # a list with elements corresponding to names/keys of all child nodes of this node instance
         if not represented:

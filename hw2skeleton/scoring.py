@@ -17,7 +17,9 @@ def intra_distance(point,cluster):
 		else:
 			distance += L2(point,val)
 	
-	return distance/(len(cluster)-1) #substract one for when point == val
+	if len(cluster) == 1:
+		return distance
+	else: distance/(len(cluster)-1) #substract one for when point == val
 	# print(point,cluster)
 	
 def inter_distance(point,*args):
@@ -30,7 +32,10 @@ def inter_distance(point,*args):
 		for val in clust:
 			distance += L2(point,val)
 
-		dists.append(distance/len(clust))
+		if len(clust) == 1:
+			dists.append(distance)
+		else:
+			dists.append(distance/len(clust))
 
 		
 	return min(dists)
