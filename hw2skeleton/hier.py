@@ -24,6 +24,8 @@ class hierarchical(object):
     metric = str
     linkage = str
 
+    root = str
+
     def __init__(self, name, data, metric='Euclidian', right=None,
                  left=None, represented=None, linkage = "Single" ):
 
@@ -33,6 +35,7 @@ class hierarchical(object):
         self.taken = False #This value changes when clustering is called
         self.data = data
         hierarchical.all_data[self.name] = data
+        hierarchical.root = name
 
         # a list with elements corresponding to names/keys of all child nodes of this node instance
         if not represented:
@@ -185,8 +188,8 @@ def main():
 
     points = []
     for x in range(20):
-        set1 = np.random.normal(5, 2, 5)
-        set2 = np.random.normal(20, 2, 5)
+        set1 = np.random.normal(5, 2, 20)
+        set2 = np.random.normal(20, 2, 20)
         points.append(list(set1))
         points.append(list(set2))
 
@@ -199,7 +202,7 @@ def main():
     global ys
     xs = []
     ys = []
-    hierarchical.DFS(hierarchical.nodes["NODE37"])
+    hierarchical.DFS(hierarchical.nodes[hierarchical.root],xs,ys)
     print(xs)
     print(ys)
 
