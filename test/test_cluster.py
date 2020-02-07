@@ -33,6 +33,10 @@ def test_hierarchical_clustering():
     for id in pdb_ids:
         filepath = os.path.join("data", "%i.pdb"%id)
         active_sites.append(io.read_active_site(filepath))
+    
+    features = find_features.calc_features(active_sites)
 
-    # update this assertion
-    assert cluster.cluster_hierarchically(active_sites) == []
+    for res,feature_vect in features.items():
+        hier.hierarchical("V" + res, feature_vect, metric='Euclidian')
+
+    assert hier.hierarchical.Cluster()

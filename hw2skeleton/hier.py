@@ -30,7 +30,7 @@ class hierarchical(object):
         self.name = name #file name
         self.right = right #leafs will be set to None 
         self.left = left #leafs will be set to None
-        self.taken = False
+        self.taken = False #This value changes when clustering is called
         self.data = data
         hierarchical.all_data[self.name] = data
 
@@ -175,7 +175,7 @@ class hierarchical(object):
 
         
         print("Y'all been clustered")
-        return
+        return True
 
 
 

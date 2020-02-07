@@ -102,7 +102,6 @@ elif sys.argv[1] == "-B":
 
 
 
-
 else:
 	print("Please specify clustering type")
 
