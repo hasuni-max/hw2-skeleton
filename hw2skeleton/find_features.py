@@ -21,4 +21,20 @@ def find_charge(residues):
 
 	return plus_charge, minus_charge
 
+def calc_features(active_sites):
+	features = {}
+	for act in active_sites:
+		features[act.name] = []
+
+		number_of_residues = len(act.residues)
+		three_letter = [str(x)[0:3] for x in act.residues]
+		plus_charge, minus_charge = find_charge(three_letter)
+		number_of_chains = len(act.chains)
+
+		features[act.name].append(number_of_residues) #number of residues
+		features[act.name].append(plus_charge) #number of plus charges - done
+		features[act.name].append(minus_charge) #number of minus charges - done
+		features[act.name].append(number_of_chains) #number of chains - done
+
+	return features
 

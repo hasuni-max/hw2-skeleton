@@ -19,7 +19,8 @@ def intra_distance(point,cluster):
 	
 	if len(cluster) == 1:
 		return distance
-	else: distance/(len(cluster)-1) #substract one for when point == val
+	else: 
+		return distance/(len(cluster)-1) #substract one for when point == val
 	# print(point,cluster)
 	
 def inter_distance(point,*args):
@@ -51,8 +52,11 @@ def silhouette_score(*args):
 		temp = list(args)
 		temp.remove(cluster) #these are all other clusters used for inter calculations
 
-		for point in cluster: 
-			a = intra_distance(point,cluster)
+		for point in cluster:
+			if len(cluster) == 1:
+				a = 0.00000001
+			else:
+				a = intra_distance(point,cluster)
 			b = inter_distance(point,*temp)
 			denom = max(a,b)
 			s = (b-a)/denom
