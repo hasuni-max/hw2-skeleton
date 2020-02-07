@@ -1,5 +1,6 @@
 from hw2skeleton import cluster
 from hw2skeleton import io, find_features, kmeans, hier, scoring
+import os
 
 
 
