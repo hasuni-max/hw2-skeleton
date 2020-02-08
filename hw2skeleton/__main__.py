@@ -29,12 +29,16 @@ if sys.argv[1] == "-P":
 	km.cluster()
 
 	clusts = []
+	#names = []
 	for k,v in km.centroids.items():
-		print(len(v))
 		clusts.append([i.data for i in v])
+		#names.append([i.label for i in v])
 
+	#print(names)
 	s = silhouette_score(*clusts)
 	print("Average silhouette_score for kmeans", sum(s)/len(s))
+
+
 
 elif sys.argv[1] == "-H":
 	print("Running hierarchical")

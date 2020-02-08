@@ -46,6 +46,8 @@ class hierarchical(object):
             self.represented = represented
 
 
+        #This is a bit clunky because I added distance function with the type of 
+        #linkage. This is a bad design, but it made a few things easier for me. 
         if metric == 'Euclidian': #assign distance_function to the desired method and from there distance_function will stay that.
             self.distance_function = self.L2
             hierarchical.metric = 'Euclidian'
@@ -55,8 +57,6 @@ class hierarchical(object):
         elif metric == "Complete":
             self.distance_function = self.complete
 
-
-        # print("Instantiating node " + self.name)
 
         # The new instance now calculates the distance between itself and other non-paired instances
         # this could be implemented as a separate private method rather than directly within the constructor
@@ -120,6 +120,11 @@ class hierarchical(object):
 
     @staticmethod
     def DFS(root,xs,ys):
+        """
+            DEPTH FIRST SEARCH. Given a starting node (root) traverse the tree!
+            Input lists, xs and ys, will contains the names and data respectively 
+            of each leaf
+        """
 
         if root is not None:
 
@@ -138,11 +143,15 @@ class hierarchical(object):
 
     @staticmethod
     def average(x, y):
+        """
+            Average two vectors and create a new vector 
+            This was for average linkage clustering. 
+        """
 
         return [(x[i] + y[i]) / 2 for i in range(len(x))]
 
     @staticmethod
-    def Cluster():  # This creates a number of composite nodes corresponding to the number of gene nodes less 1
+    def Cluster(metric='Single'):  # This creates a number of composite nodes corresponding to the number of gene nodes less 1
 
         for i in range(len(hierarchical.nodes) - 1): #n-1
 
@@ -153,13 +162,13 @@ class hierarchical(object):
             leftData = hierarchical.nodes[hierarchical.bestLeft].data 
             rightData = hierarchical.nodes[hierarchical.bestRight].data 
             
+            #the average vector is still taken even when doing single and complete linkage. 
             tempdata = hierarchical.average(leftData, rightData)
 
 
             tempname = "NODE" + str(i)
             # print(tempname)
-            hierarchical.metric = 'Complete'
-
+            hierarchical.metric = metric
             hierarchical(tempname, tempdata, hierarchical.metric, hierarchical.bestLeft, hierarchical.bestRight, represented= hierarchical.nodes[hierarchical.bestLeft].represented + hierarchical.nodes[hierarchical.bestRight].represented) # + hierarchical.nodes[hierarchical.bestRight].represented)
 
 
@@ -172,11 +181,10 @@ class hierarchical(object):
                 if cur_distance > hierarchical.bestDistance:
                     left_one, right_one = node_pair
                     if (hierarchical.nodes[left_one].taken is False) and (hierarchical.nodes[right_one].taken is False):
-                        #testing to make sure that we are only considering unpaired "available" node pairs
+                        #update class variables after making new node
                         hierarchical.bestDistance = cur_distance
                         hierarchical.bestLeft = left_one
                         hierarchical.bestRight = right_one
-                        #Reset the class attributes tracking the node pair resulting in the minimal distance
 
         
         print("Y'all been clustered")
